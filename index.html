@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Декодер</title>
+<script>
+decode_1 = function () {
+var parseXml;
+ 
+
+if (typeof window.DOMParser != "undefined") {
+    parseXml = function(xmlStr) {
+        return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
+    };
+} else if (typeof window.ActiveXObject != "undefined" &&
+       new window.ActiveXObject("Microsoft.XMLDOM")) {
+    parseXml = function(xmlStr) {
+        var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc.async = "false";
+        xmlDoc.loadXML(xmlStr);
+        return xmlDoc;
+    };
+} else {
+    throw new Error("No XML parser found");
+}
+  var xml = parseXml(document.getElementById('id_text1').value);
+//alert(xml.documentElement.nodeName);
+//alert(xml.getElementsByTagName("streetNumber")[0].childNodes[0].nodeValue);
+var res ="" ;
+res = res +"operday " + xml.getElementsByTagName("operday")[0].childNodes[0].nodeValue +"\n";
+res = res +"cardacc " + xml.getElementsByTagName("cardacc")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"sname1  " + xml.getElementsByTagName("sname1")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"sfilial  " + xml.getElementsByTagName("sfilial")[0].childNodes[0].nodeValue +"\n"; 
+res = res +"sname1  " + xml.getElementsByTagName("sname1")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"sname2  " + xml.getElementsByTagName("sname2")[0].childNodes[0].nodeValue +"\n" ;
+//res = res +"sname3  " + xml.getElementsByTagName("sname3")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"spassword  " + xml.getElementsByTagName("spassword")[0].childNodes[0].nodeValue +"\n" ;
+
+for (var tg in xml.attributes)  { }; // {res = res + "1" +"\n" ;};
+
+/*
+res = res +"operday  " + xml.getElementsByTagName("operday")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"operid  " + xml.getElementsByTagName("operid")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"npackid  " + xml.getElementsByTagName("npackid")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"cardacc  " + xml.getElementsByTagName("cardacc")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"nsum  " + xml.getElementsByTagName("nsum")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"dpaymdate  " + xml.getElementsByTagName("dpaymdate")[0].childNodes[0].nodeValue +"\n" ;
+res = res +"naccountsetid  " + xml.getElementsByTagName("naccountsetid")[0].childNodes[0].nodeValue +"\n" ;
+*/
+
+document.getElementById('id_text2').value = res;
+}
+</script>
+</HEAD>
+<BODY>
+<b>Декодер</b>
+<textarea name="msg" id="id_text1" cols="65" rows="15" style="width:100%; height:15em"></textarea>
+<BUTTON name="b1" id="Decode1" value="Расшифровать" onclick="decode_1();">Расшифровать</BUTTON>
+<textarea name="msg" id="id_text2" cols="65" rows="15" style="width:100%; height:15em"></textarea>
+</BODY>
+</HTML>
